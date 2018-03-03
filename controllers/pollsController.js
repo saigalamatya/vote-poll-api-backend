@@ -64,19 +64,35 @@ router.post('/', (req, res) => {
 
 router.get('/', (req, res) => {
 
-    console.log("inside control /GET ", req.body);
+    console.log("inside control /GET ");
 
-    pollsService.getPoll().then((poll) => {
-        res.status(201).json({
-            message: "/GET successful",
-            obj: poll
-        });
-    }).catch((err) => {
-        res.status(500).json({
-            message: "Error fetching /GET",
-            obj: err
-        });
+    Poll.find()
+        .populate('options')
+        .exec((err, polls) => {
+            if (err) {
+                res.status(500).json({
+                    message: "Polls /GET unscuccessful",
+                    error: err
+                });
+            }
+
+            res.status(200).json({
+                message: "Polls /GET successful",
+                obj: polls
+            })
     });
+
+    // pollsService.getPoll().then((poll) => {
+    //     res.status(201).json({
+    //         message: "/GET successful",
+    //         obj: poll
+    //     });
+    // }).catch((err) => {
+    //     res.status(500).json({
+    //         message: "Error fetching /GET",
+    //         obj: err
+    //     });
+    // });
 
 });
 
