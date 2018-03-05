@@ -80,7 +80,7 @@ router.get('/', (req, res) => {
                 message: "Polls /GET successful",
                 obj: polls
             })
-    });
+        });
 
     // pollsService.getPoll().then((poll) => {
     //     res.status(201).json({
@@ -88,12 +88,34 @@ router.get('/', (req, res) => {
     //         obj: poll
     //     });
     // }).catch((err) => {
-    //     res.status(500).json({
+    //   _i  res.status(500).json({
     //         message: "Error fetching /GET",
     //         obj: err
     //     });
     // });
 
 });
+
+router.get('/:id', (req, res) => {
+
+    console.log("Inside /GET polls/options");
+
+    Poll.find({ _id: req.params.id })
+        .populate('options')
+        .exec((err, results) => {
+            if(err) {
+                res.status(500).json({
+                    message: "Polls /GET polls/options unsuccessful",
+                    obj: err
+                })
+            }
+
+            res.status(200).json({
+                message: "Polls /GET polls/options successful",
+                obj: results
+            })
+        })
+});
+
 
 module.exports = router;
