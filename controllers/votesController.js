@@ -76,8 +76,7 @@ router.get('/counts/:pollId', (req, res) => {
 
         res.status(200).json({
             message: "Get count successful",
-            _id: req.params.pollId,
-            option: req.body.option
+            count: result
         })
     });
 });

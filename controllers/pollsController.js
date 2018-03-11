@@ -44,9 +44,9 @@ router.post('/', (req, res) => {
             res.status(201).json({
                 message: "Poll create successful",
                 obj: poll
-            })
-        })
-    })
+            });
+        });
+    });
 
     // pollsService.createPoll(req.body).then((result) => {
     //     res.status(201).json({
